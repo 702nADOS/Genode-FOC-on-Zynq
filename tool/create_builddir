@@ -43,6 +43,7 @@ usage:
 	@echo "                  'foc_pbxa9'"
 	@echo "                  'foc_imx53'"
 	@echo "                  'foc_panda'"
+	@echo "                  'foc_zybo'"
 	@echo "                  'foc_arndale'"
 	@echo "                  'foc_rpi'"
 	@echo "                  'foc_odroid_x2'"
@@ -201,6 +202,9 @@ foc_panda::
 
 foc_imx53::
 	@echo "SPECS = genode foc_imx53" > $(BUILD_DIR)/etc/specs.conf
+
+foc_zybo::
+	@echo "SPECS = genode foc_zybo" > $(BUILD_DIR)/etc/specs.conf
 
 foc_arndale::
 	@echo "SPECS = genode foc_arndale" > $(BUILD_DIR)/etc/specs.conf
