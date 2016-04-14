@@ -1,6 +1,6 @@
 LICENSE   := GPLv2
 VERSION   := git
 DOWNLOADS := foc.git
-URL(foc)  := http://github.com/ssumpf/foc.git
-REV(foc)  := 818a435e9efa5b48fe396a1e88c09a3d1c3cc9b7
+URL(foc)  := http://github.com/702nADOS/FOC-for-Genode-FOC-on-Zynq.git
+REV(foc)  := ce1fb3dfc3fcde0f4c550de117542ae615068090
 DIR(foc)  := src/kernel/foc
