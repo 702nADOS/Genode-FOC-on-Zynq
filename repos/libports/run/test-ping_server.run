@@ -32,9 +32,10 @@ create_boot_directory
 #
 # Generate config
 #
+# ip_addr="10.0.1.2" gateway="10.0.1.5" netmask="255.255.255.0" 
 
 set config {
-<config verbose="yes">
+<config verbose="yes" prio_levels="4">
 	<parent-provides>
 		<service name="ROM"/>
 		<service name="RAM"/>
@@ -51,17 +52,17 @@ set config {
 	<default-route>
 		<any-service> <parent/> <any-child/> </any-service>
 	</default-route>
-	<start name="timer">
+	<start name="timer" priority="0">
 		<resource name="RAM" quantum="1M"/>
 		<provides> <service name="Timer"/> </provides>
 	</start>
-	<start name="test-ping_server_libc_lwip">
-		<resource name="RAM" quantum="16M"/>
+	<start name="test-ping_server_lwip" priority="-1">
+		<resource name="RAM" quantum="20M"/>
 		<config>
 			<argv verbose="0" listenip="0.0.0.0" />
-			<libc stdout="/dev/log" stderr="/dev/log">
-				<vfs> <dir name="dev"> <log/> </dir> </vfs>
-			</libc>
+                        <libc stdout="/dev/log" stderr="/dev/log">
+                               <vfs> <dir name="dev"> <log/> </dir> </vfs>
+                       </libc>
 		</config>
 	</start> }
 
@@ -84,9 +85,14 @@ append_if [expr [have_spec omap4] || [have_spec arndale]] config {
 	</start>}
 
 append_if [expr ![have_spec omap4] && ![have_spec arndale]] config {
-	<start name="nic_drv">
+	<start name="nic_drv" priority="-2">
 		<resource name="RAM" quantum="4M"/>
-		<provides><service name="Nic"/></provides>
+		<provides>
+			<service name="Nic"/>
+		</provides>
+		<config ehci="yes">
+			<nic mac="0A-68-FD-BA-9D-D2" />
+		</config>
 	</start>}
 
 append_platform_drv_config
@@ -105,7 +111,7 @@ install_config $config
 set boot_modules {
 	core init timer
 	ld.lib.so libc.lib.so lwip.lib.so
-	test-ping_server_libc_lwip
+	test-ping_server_lwip
 }
 
 # platform-specific modules

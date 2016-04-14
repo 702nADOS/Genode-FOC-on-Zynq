@@ -42,7 +42,7 @@ create_boot_directory
 #
 
 set config {
-<config verbose="yes">
+<config verbose="yes" prio_levels="4">
 	<parent-provides>
 		<service name="ROM"/>
 		<service name="RAM"/>
@@ -65,7 +65,7 @@ set config {
 	</start> }
 
 append_if $use_nic_bridge config {
-	<start name="nic_bridge">
+	<start name="nic_bridge" priority="-2">
 		<resource name="RAM" quantum="2M"/>
 		<provides><service name="Nic"/></provides>
 		<route>
@@ -81,7 +81,7 @@ append_if $use_nic_bridge config {
 	</start> }
 
 append config "
-	<start name=\"$test_server_name\">"
+	<start name=\"$test_server_name\" priority=\"-1\">"
 append config {
 		<resource name="RAM" quantum="16M"/>
 		<config>
@@ -117,7 +117,7 @@ append_if [expr [have_spec omap4] || [have_spec arndale]] config {
 	</start>}
 
 append_if [expr ![have_spec omap4] && ![have_spec arndale]] config {
-	<start name="nic_drv">
+	<start name="nic_drv" priority="-3">
 		<resource name="RAM" quantum="4M"/>
 		<provides><service name="Nic"/></provides>
 	</start>}

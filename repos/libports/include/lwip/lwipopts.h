@@ -67,12 +67,13 @@
 #define MEMP_MEM_MALLOC             1
 /* MEM_ALIGNMENT > 4 e.g. for x86_64 are not supported, see Genode issue #817 */
 #define MEM_ALIGNMENT               4
+#define MEM_SIZE               (1024*1024)
 
 #define DEFAULT_ACCEPTMBOX_SIZE   128
 #define TCPIP_MBOX_SIZE           128
 
 #define TCP_MSS                  1460
-#define TCP_WND                     (96 * TCP_MSS)
+#define TCP_WND                     (8 * TCP_MSS)
 
 /*
  * The window scale option (http://tools.ietf.org/html/rfc1323) patch of lwIP
